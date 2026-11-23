@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Lembar Jawab Kuis Kelas 8</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700;800&display=swap">
+<style>
+/* Layout: satu kolom sempit untuk HP. Siswa hanya melihat tombol jawaban, soal ada di layar kelas.
+   Warna mengikuti kuis sebelumnya: biru tua dan hijau toska. */
+:root{
+  --bg:#f2f5f9; --surface:#ffffff; --ink:#14213d; --muted:#586682; --line:#d5dce9;
+  --accent:#0b7f78; --accent-ink:#ffffff; --accent-soft:#dcf1ee;
+  --warn:#8a5200; --warn-soft:#fdecc8; --bad:#b4332b; --bad-soft:#fbe0dd;
+  --good:#1b7a3a; --good-soft:#dff3e4;
+  --font-display:'Fredoka','Trebuchet MS',system-ui,sans-serif;
+  --font-body:'Nunito',system-ui,-apple-system,'Segoe UI',sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0e1628; --surface:#172240; --ink:#e8edf7; --muted:#a2b2cf; --line:#2b3a5e;
+    --accent:#44c7bb; --accent-ink:#06211f; --accent-soft:#12383b;
+    --warn:#f6c45f; --warn-soft:#3a2f12; --bad:#ff8f86; --bad-soft:#3e1e20;
+    --good:#7fdc9a; --good-soft:#143322;
+    color-scheme:dark;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.5;
+  min-height:100vh;min-height:100dvh;touch-action:manipulation;
+  padding-bottom:max(32px,env(safe-area-inset-bottom,0px))}
+h1,h2{font-family:var(--font-display);font-weight:600;line-height:1.2;margin:0;text-wrap:balance}
+p{margin:0}
+.wrap{max-width:560px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.top{position:sticky;top:0;z-index:5;background:var(--surface);border-bottom:1px solid var(--line);padding-top:env(safe-area-inset-top,0px)}
+.topin{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:10px}
+.brand{font-family:var(--font-display);font-weight:600}
+.who{display:flex;align-items:center;gap:10px;min-width:0;font-size:.9rem;color:var(--muted)}
+.who b{color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:38vw}
+.link{background:none;border:0;color:var(--accent);font:inherit;font-weight:700;cursor:pointer;padding:4px 0}
+.prog{height:4px;background:var(--line)}
+.prog i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+main{padding-top:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:20px}
+.eyebrow{font-size:.75rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.lead{color:var(--muted);margin-top:8px}
+.hint{color:var(--muted);font-size:.85rem}
+.qhead{display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.qno{font-family:var(--font-display);font-weight:600;font-size:4rem;line-height:1;font-variant-numeric:tabular-nums}
+.qno small{font-size:1.1rem;color:var(--muted);font-weight:500;margin-left:6px}
+.tag{background:var(--accent-soft);border-radius:999px;padding:4px 12px;font-weight:800;font-size:.8rem;white-space:nowrap}
+.strip{display:grid;grid-template-columns:repeat(20,1fr);gap:3px;margin-top:16px}
+.strip i{height:8px;border-radius:2px;background:var(--line)}
+.strip i.done{background:var(--accent)}
+.strip i.miss{background:transparent;border:1px solid var(--muted)}
+.strip i.cur{outline:2px solid var(--ink);outline-offset:1px}
+.ch{display:grid;gap:12px;margin-top:20px}
+.ch-pg{grid-template-columns:1fr 1fr}
+.ch-bs{grid-template-columns:1fr 1fr}
+.ch-jd{grid-template-columns:repeat(3,1fr)}
+.chb{font:inherit;background:var(--bg);color:var(--ink);border:3px solid var(--line);border-radius:16px;min-height:88px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;padding:8px}
+.ch-bs .chb{min-height:104px}
+.chl{font-family:var(--font-display);font-weight:600;font-size:2.4rem;line-height:1}
+.ch-bs .chl{font-size:1.7rem}
+.chb.sel{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.chb:focus-visible,.btn:focus-visible,textarea:focus-visible,input:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.send{margin-top:22px;display:grid;gap:8px;text-align:center}
+.btn{font:inherit;font-weight:800;font-size:1.05rem;background:var(--accent);color:var(--accent-ink);border:0;border-radius:14px;padding:14px 22px;min-height:54px;cursor:pointer;width:100%}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.btn.warn{background:var(--bad);color:#fff}
+.err{color:var(--bad);font-weight:700;min-height:1.2em;margin-top:10px;text-align:center}
+input[type=text],input[type=password],input[type=number],textarea{font:inherit;color:var(--ink);background:var(--bg);border:2px solid var(--line);border-radius:12px;padding:12px 14px;width:100%}
+textarea{resize:vertical;min-height:150px;margin-top:18px;line-height:1.5}
+.cnt{text-align:right;color:var(--muted);font-size:.8rem;margin-top:4px}
+.field{display:grid;gap:6px;margin-top:16px}
+.field label{font-weight:800;font-size:.9rem}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.center{text-align:center}
+.bigans{font-family:var(--font-display);font-weight:600;font-size:4.5rem;line-height:1;margin:14px 0 4px;color:var(--accent)}
+.bigans.w{font-size:2.6rem}
+.sent{display:inline-flex;align-items:center;gap:8px;background:var(--good-soft);color:var(--good);border-radius:999px;padding:6px 14px;font-weight:800;font-size:.9rem}
+.sent svg{width:18px;height:18px}
+.quote{background:var(--bg);border-radius:12px;padding:12px 14px;text-align:left;margin-top:14px;overflow-wrap:anywhere;white-space:pre-wrap}
+.pulse{width:14px;height:14px;border-radius:50%;background:var(--accent);margin:0 auto 14px;animation:pl 1.4s ease-in-out infinite}
+@keyframes pl{0%,100%{transform:scale(.8);opacity:.5}50%{transform:scale(1.15);opacity:1}}
+.net{text-align:center;font-size:.8rem;color:var(--muted);margin-top:14px;min-height:1.2em}
+.net.off{color:var(--bad);font-weight:700}
+/* panel guru */
+.g-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.g-no{font-family:var(--font-display);font-weight:600;font-size:3.6rem;line-height:1;font-variant-numeric:tabular-nums}
+.g-no small{font-size:1.1rem;color:var(--muted);font-weight:500}
+.badge{display:inline-block;border-radius:999px;padding:4px 12px;font-weight:800;font-size:.8rem}
+.badge.on{background:var(--good-soft);color:var(--good)}
+.badge.off{background:var(--warn-soft);color:var(--warn)}
+.keybox{text-align:right}
+.keybox .v{font-family:var(--font-display);font-weight:600;font-size:2.4rem;color:var(--accent);line-height:1}
+.g-btns{display:grid;gap:10px;margin-top:18px}
+.g-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cnt-big{font-family:var(--font-display);font-weight:600;font-size:1.6rem;font-variant-numeric:tabular-nums}
+.meter{height:10px;border-radius:5px;background:var(--line);overflow:hidden;margin-top:6px}
+.meter i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+.bars{display:grid;gap:8px;margin-top:14px}
+.bar{display:grid;grid-template-columns:2.4rem 1fr 2.6rem;gap:10px;align-items:center}
+.bar b{font-family:var(--font-display);font-size:1.2rem;text-align:center}
+.bar .tr{height:22px;border-radius:6px;background:var(--line);overflow:hidden}
+.bar .tr i{display:block;height:100%;width:0;background:var(--muted);transition:width .3s}
+.bar.ok .tr i{background:var(--accent)}
+.bar.ok b{color:var(--accent)}
+.bar span{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chip{background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-size:.85rem}
+.goto{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:14px}
+.goto .btn{width:auto;min-height:48px}
+.gsec{margin-top:16px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:360px){.chl{font-size:2rem}.qno{font-size:3.2rem}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap topin">
+    <div class="brand" id="brand">Lembar Jawab</div>
+    <div class="who" id="who"></div>
+  </div>
+  <div class="prog"><i id="pbar"></i></div>
+</header>
+<main class="wrap" id="main"></main>
+<noscript><p class="wrap">Halaman ini memerlukan JavaScript.</p></noscript>
+
+<script>
+(function(){
+'use strict';
+
+/* ===== PENGATURAN: tempel URL aplikasi web Apps Script (berakhiran /exec) ===== */
+var API_URL='GANTI_DENGAN_URL_WEB_APP';
+
+var TOTAL=40, POLL_MS=3000, GURU_POLL_MS=2500;
+var GURU=(location.hash==='#guru');
+var OPS={pg:['A','B','C','D'],bs:['B','S'],jd:['A','B','C','D','E','F']};
+var BS_TXT={B:'Benar',S:'Salah'};
+var LBL={pg:'Pilihan ganda',bs:'Benar atau salah',jd:'Menjodohkan',ur:'Uraian singkat'};
+function tipe(n){return n<=15?'pg':n<=25?'bs':n<=35?'jd':'ur';}
+
+var $=function(id){return document.getElementById(id);};
+var main=$('main');
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function lsGet(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+function lsSet(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+function lsDel(k){try{localStorage.removeItem(k);}catch(e){}}
+function ssGet(k){try{return sessionStorage.getItem(k);}catch(e){return null;}}
+function ssSet(k,v){try{sessionStorage.setItem(k,v);}catch(e){}}
+function ssDel(k){try{sessionStorage.removeItem(k);}catch(e){}}
+window.addEventListener('hashchange',function(){location.reload();});
+
+/* ===== JARINGAN ===== */
+function wait(ms){return new Promise(function(r){setTimeout(r,ms);});}
+function api(body,tries){
+  tries=tries||4;var attempt=0;
+  function go(){
+    attempt++;
+    return fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)})
+      .then(function(r){return r.json();})
+      .then(function(res){
+        if(res&&res.busy&&attempt<tries){return wait(500*attempt+Math.random()*700).then(go);}
+        return res;
+      },function(err){
+        if(attempt<tries){return wait(600*attempt+Math.random()*900).then(go);}
+        throw err;
+      });
+  }
+  return go();
+}
+function getStatus(){
+  return fetch(API_URL+'?action=status&_='+Date.now()).then(function(r){return r.json();});
+}
+function configured(){return API_URL.indexOf('http')===0;}
+
+/* =====================================================================
+   SISWA
+   ===================================================================== */
+var me=null, answers={}, server={current:0,open:false,rev:0}, draft={}, sending=false, online=true, lastView='';
+
+function answeredCount(){return Object.keys(answers).length;}
+function viewKey(){
+  var c=server.current;
+  return [c,server.open?1:0,answers[c]!==undefined?1:0,me?1:0].join('|');
+}
+function setHeader(){
+  $('who').innerHTML=me?'<b>'+esc(me.nama)+'</b><button class="link" id="keluar">Keluar</button>':'';
+  if(me){$('keluar').onclick=function(){lsDel('lj-id');location.reload();};}
+  $('pbar').style.width=(me?answeredCount()/TOTAL*100:0)+'%';
+}
+function strip(){
+  var h='<div class="strip" aria-hidden="true">';
+  for(var n=1;n<=TOTAL;n++){
+    var c=answers[n]!==undefined?'done':(n<server.current||server.current>TOTAL)?'miss':'';
+    if(n===server.current)c+=' cur';
+    h+='<i class="'+c+'"></i>';
+  }
+  return h+'</div>';
+}
+function netLine(){return '<p class="net'+(online?'':' off')+'" id="net">'+(online?'Terhubung':'Koneksi terputus, mencoba lagi…')+'</p>';}
+function qhead(n,t){
+  return '<div class="qhead"><div class="qno">'+n+'<small>/ '+TOTAL+'</small></div><span class="tag">'+LBL[t]+'</span></div>';
+}
+function canSend(n){var t=tipe(n);return t==='ur'?((draft[n]||'').trim().length>0):!!draft[n];}
+
+function vLogin(){
+  var saved=lsGet('lj-draft-name')||'';
+  main.innerHTML='<section class="card"><p class="eyebrow">Kuis Informatika Kelas 8</p><h1 style="margin-top:6px">Masuk ke lembar jawab</h1>'+
+  '<p class="lead">Soal ditampilkan di layar kelas. Di sini kamu hanya memilih jawaban.</p>'+
+  '<div class="field"><label for="nama">Nama lengkap</label><input type="text" id="nama" maxlength="60" autocomplete="name" value="'+esc(saved)+'"></div>'+
+  '<div class="field"><label for="kelas">Kelas</label><input type="text" id="kelas" maxlength="10" placeholder="Contoh: 8A" autocomplete="off"></div>'+
+  '<div class="send"><button class="btn" id="masuk" disabled>Masuk</button><p class="hint">Pakai nama yang sama dengan daftar kelas. Jika halaman tertutup, masuk lagi dengan nama yang sama dan jawabanmu tetap tersimpan.</p></div>'+
+  '<div class="err" id="err" role="alert"></div></section>';
+  var n=$('nama'),k=$('kelas'),b=$('masuk');
+  function chk(){b.disabled=!(n.value.trim()&&k.value.trim());}
+  n.oninput=chk;k.oninput=chk;chk();
+  b.onclick=function(){
+    b.disabled=true;b.textContent='Masuk…';$('err').textContent='';
+    doJoin(n.value,k.value,true);
+  };
+}
+function vWait(){
+  main.innerHTML='<section class="card center"><div class="pulse"></div><h1>Menunggu guru memulai kuis</h1>'+
+  '<p class="lead">Halo, '+esc(me.nama)+'. Tetap buka halaman ini. Soal pertama muncul otomatis.</p></section>'+netLine();
+}
+function vAsk(n){
+  var t=tipe(n);
+  var h='<section class="card">'+qhead(n,t)+'<p class="lead">Lihat soal di layar kelas, lalu pilih jawabanmu.</p>';
+  if(t==='ur'){
+    h+='<label class="sr" for="uraian">Jawaban uraian</label><textarea id="uraian" maxlength="600" rows="6" placeholder="Tulis jawabanmu dengan 2 sampai 4 kalimat…">'+esc(draft[n]||'')+'</textarea><div class="cnt"><span id="cn">'+(draft[n]||'').length+'</span>/600</div>';
+  }else{
+    h+='<div class="ch ch-'+t+'" role="group" aria-label="Pilihan jawaban">';
+    OPS[t].forEach(function(o){
+      var sel=draft[n]===o;
+      h+='<button type="button" class="chb'+(sel?' sel':'')+'" data-v="'+o+'" aria-pressed="'+sel+'"><span class="chl">'+(t==='bs'?BS_TXT[o]:o)+'</span></button>';
+    });
+    h+='</div>';
+  }
+  h+='<div class="send"><button class="btn" id="send"'+(canSend(n)?'':' disabled')+'>Kirim jawaban</button><p class="hint">Jawaban yang sudah dikirim tidak bisa diubah.</p></div><div class="err" id="err" role="alert"></div></section>'+strip()+netLine();
+  main.innerHTML=h;
+  var sb=$('send');
+  if(t==='ur'){
+    var ta=$('uraian');
+    ta.oninput=function(){draft[n]=ta.value;$('cn').textContent=ta.value.length;sb.disabled=!canSend(n);};
+  }else{
+    Array.prototype.forEach.call(main.querySelectorAll('.chb'),function(btn){
+      btn.onclick=function(){
+        draft[n]=btn.getAttribute('data-v');
+        Array.prototype.forEach.call(main.querySelectorAll('.chb'),function(x){
+          var on=x===btn;x.classList.toggle('sel',on);x.setAttribute('aria-pressed',on);
+        });
+        sb.disabled=false;
+      };
+    });
+  }
+  sb.onclick=function(){send(n);};
+}
+var CHECK='<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10.5l4 4 8-9"/></svg>';
+function vLocked(n,a){
+  var t=tipe(n);
+  var h='<section class="card center">'+qhead(n,t)+'<p style="margin-top:14px"><span class="sent">'+CHECK+'Jawaban terkirim</span></p>';
+  if(t==='ur'){h+='<div class="quote">'+esc(a)+'</div>';}
+  else{h+='<div class="bigans'+(t==='bs'?' w':'')+'">'+(t==='bs'?BS_TXT[a]:esc(a))+'</div>';}
+  h+='<p class="lead">'+(server.open?'Jawaban tidak bisa diubah. Tunggu guru menutup soal dan menjelaskan.':'Soal sudah ditutup. Simak penjelasan dari guru.')+'</p></section>'+strip()+netLine();
+  main.innerHTML=h;
+}
+function vMissed(n){
+  var t=tipe(n);
+  main.innerHTML='<section class="card center">'+qhead(n,t)+'<h2 style="margin-top:16px">Soal ditutup</h2><p class="lead">Kamu tidak mengirim jawaban untuk soal ini. Simak penjelasan guru, lalu tunggu soal berikutnya.</p></section>'+strip()+netLine();
+}
+function vFinish(){
+  main.innerHTML='<section class="card center"><span class="sent">'+CHECK+'Kuis selesai</span><h1 style="margin-top:14px">Terima kasih, '+esc(me.nama)+'</h1>'+
+  '<p class="lead">Jawabanmu sudah tersimpan. Kamu menjawab '+answeredCount()+' dari '+TOTAL+' soal.</p></section>'+strip();
+}
+function renderStudent(){
+  if(!configured()){main.innerHTML='<section class="card"><h1>Alamat server belum diisi</h1><p class="lead">Guru perlu mengisi API_URL di index.html dengan URL aplikasi web Apps Script.</p></section>';return;}
+  setHeader();
+  if(!me){vLogin();return;}
+  var c=server.current;
+  if(c===0)return vWait();
+  if(c>TOTAL)return vFinish();
+  var a=answers[c];
+  if(a!==undefined)return vLocked(c,a);
+  if(!server.open)return vMissed(c);
+  vAsk(c);
+}
+function render(){lastView=viewKey();renderStudent();}
+
+function showErr(msg){var e=$('err');if(e)e.textContent=msg;}
+function send(n){
+  if(sending||!canSend(n))return;
+  var val=tipe(n)==='ur'?(draft[n]||'').trim():draft[n];
+  sending=true;
+  var b=$('send');b.disabled=true;b.textContent='Mengirim…';showErr('');
+  api({action:'answer',key:me.key,no:n,val:val}).then(function(res){
+    sending=false;
+    if(res&&res.ok){answers[n]=res.val!==undefined?res.val:val;render();return;}
+    if(res&&res.closed){if(res.state)server=res.state;render();return;}
+    if(res&&res.needJoin){doJoin(me.nama,me.kelas,false);return;}
+    b.disabled=false;b.textContent='Kirim jawaban';showErr((res&&res.error)||'Gagal mengirim. Coba lagi.');
+  }).catch(function(){
+    sending=false;b.disabled=false;b.textContent='Kirim jawaban';showErr('Koneksi bermasalah. Ketuk Kirim jawaban sekali lagi.');
+  });
+}
+function doJoin(nama,kelas,fresh){
+  api({action:'join',nama:nama,kelas:kelas}).then(function(res){
+    if(!res||!res.ok){
+      if(fresh){vLogin();showErr((res&&res.error)||'Gagal masuk.');}
+      return;
+    }
+    me={key:res.key,nama:res.nama,kelas:kelas};
+    answers=res.answers||{};
+    server=res.state||server;
+    lsSet('lj-id',JSON.stringify({nama:nama,kelas:kelas}));
+    render();
+    startPolling();
+  }).catch(function(){
+    if(fresh){vLogin();showErr('Tidak bisa tersambung ke server. Periksa internet lalu coba lagi.');}
+    else{setTimeout(function(){doJoin(nama,kelas,false);},2000);}
+  });
+}
+var pollTimer=null;
+function startPolling(){
+  if(pollTimer)return;
+  pollTimer=setInterval(function(){
+    getStatus().then(function(res){
+      var was=online;online=true;
+      if(res&&res.ok&&res.state){
+        server=res.state;
+        if(viewKey()!==lastView){render();}
+        else if(!was){var n=$('net');if(n){n.className='net';n.textContent='Terhubung';}}
+      }
+    }).catch(function(){
+      if(online){online=false;var n=$('net');if(n){n.className='net off';n.textContent='Koneksi terputus, mencoba lagi…';}}
+    });
+  },POLL_MS);
+}
+function initStudent(){
+  if(!configured()){renderStudent();return;}
+  var saved=null;
+  try{saved=JSON.parse(lsGet('lj-id')||'null');}catch(e){}
+  if(saved&&saved.nama&&saved.kelas){
+    main.innerHTML='<section class="card center"><div class="pulse"></div><p class="lead">Menyambungkan…</p></section>';
+    doJoin(saved.nama,saved.kelas,false);
+  }else{renderStudent();}
+}
+
+/* =====================================================================
+   GURU  (buka dengan index.html#guru)
+   ===================================================================== */
+var pin=ssGet('lj-pin')||'', gState={current:0,open:false}, gTimer=null, gBusy=false, confirmFinish=0;
+
+function vGuruLogin(msg){
+  $('brand').textContent='Panel Guru';$('who').innerHTML='';
+  main.innerHTML='<section class="card"><p class="eyebrow">Panel guru</p><h1 style="margin-top:6px">Masukkan PIN</h1>'+
+  '<div class="field"><label for="pin">PIN guru</label><input type="password" id="pin" inputmode="numeric" autocomplete="off"></div>'+
+  '<div class="send"><button class="btn" id="pinok" disabled>Buka panel</button></div><div class="err" id="err" role="alert">'+esc(msg||'')+'</div></section>';
+  var p=$('pin'),b=$('pinok');
+  p.oninput=function(){b.disabled=!p.value;};
+  p.onkeydown=function(e){if(e.key==='Enter'&&p.value)b.click();};
+  b.onclick=function(){
+    b.disabled=true;pin=p.value;
+    api({action:'stats',pin:pin},2).then(function(res){
+      if(res&&res.ok){ssSet('lj-pin',pin);buildGuru();applyStats(res);startGuruPoll();}
+      else{vGuruLogin((res&&res.error)||'PIN salah.');}
+    }).catch(function(){vGuruLogin('Tidak bisa tersambung ke server.');});
+  };
+  p.focus();
+}
+function buildGuru(){
+  $('brand').textContent='Panel Guru';
+  $('who').innerHTML='<button class="link" id="gout">Keluar</button>';
+  $('gout').onclick=function(){ssDel('lj-pin');location.reload();};
+  main.innerHTML=
+  '<section class="card"><div class="g-top"><div><div class="g-no" id="gNo">–</div><p style="margin-top:8px"><span class="badge off" id="gBadge">Belum mulai</span> <span class="hint" id="gType"></span></p></div>'+
+  '<div class="keybox"><div class="hint">Kunci</div><div class="v" id="gKey">–</div></div></div>'+
+  '<div class="g-btns" id="gBtns"></div><div class="err" id="gErr" role="alert"></div></section>'+
+  '<section class="card gsec"><div class="hint">Sudah menjawab</div><div class="cnt-big" id="gCount">0 dari 0</div><div class="meter"><i id="gMeter"></i></div>'+
+  '<div class="bars" id="gBars"></div><div class="hint" id="gPct" style="margin-top:12px"></div></section>'+
+  '<section class="card gsec"><div class="hint">Belum menjawab</div><div class="chips" id="gBelum"></div></section>'+
+  '<section class="card gsec"><label class="hint" for="gGoto">Lompat ke nomor soal</label><div class="goto"><input type="number" id="gGoto" min="1" max="'+TOTAL+'" inputmode="numeric"><button class="btn ghost" id="gGo">Buka</button></div></section>';
+  $('gGo').onclick=function(){var n=parseInt($('gGoto').value,10);if(n>=1&&n<=TOTAL)ctl('goto',n);};
+  drawButtons();
+}
+function drawButtons(){
+  var c=gState.current,o=gState.open,h='';
+  if(c===0){h='<button class="btn" data-c="start">Mulai kuis (soal 1)</button>';}
+  else if(c>TOTAL){h='<p class="hint">Kuis sudah diselesaikan. Gunakan lompat ke nomor untuk membuka soal lagi.</p>';}
+  else{
+    h+=o?'<button class="btn warn" data-c="close">Tutup jawaban</button>':'<button class="btn" data-c="open">Buka jawaban lagi</button>';
+    if(c<TOTAL)h+='<button class="btn'+(o?' ghost':'')+'" data-c="next">Soal berikutnya →</button>';
+    else h+='<button class="btn'+(confirmFinish?' warn':' ghost')+'" data-c="finish">'+(confirmFinish?'Yakin? Ketuk lagi untuk menyelesaikan':'Selesaikan kuis')+'</button>';
+    if(c>1)h+='<button class="btn ghost" data-c="prev">← Soal sebelumnya</button>';
+  }
+  $('gBtns').innerHTML=h;
+  Array.prototype.forEach.call($('gBtns').querySelectorAll('button'),function(b){
+    b.onclick=function(){
+      var cmd=b.getAttribute('data-c');
+      if(cmd==='finish'&&!confirmFinish){confirmFinish=1;drawButtons();setTimeout(function(){confirmFinish=0;drawButtons();},4000);return;}
+      confirmFinish=0;ctl(cmd);
+    };
+  });
+}
+function ctl(cmd,n){
+  if(gBusy)return;gBusy=true;$('gErr').textContent='';
+  api({action:'ctl',pin:pin,cmd:cmd,n:n},3).then(function(res){
+    gBusy=false;
+    if(res&&res.ok){gState=res.state;drawButtons();refreshStats();}
+    else $('gErr').textContent=(res&&res.error)||'Gagal.';
+  }).catch(function(){gBusy=false;$('gErr').textContent='Koneksi bermasalah. Coba lagi.';});
+}
+function refreshStats(){
+  api({action:'stats',pin:pin},1).then(function(res){if(res&&res.ok)applyStats(res);}).catch(function(){});
+}
+function applyStats(res){
+  var prev=gState.current+'|'+gState.open;
+  gState=res.state;
+  var c=gState.current,o=gState.open;
+  $('gNo').innerHTML=c===0?'–':c>TOTAL?'Selesai':c+'<small> / '+TOTAL+'</small>';
+  var b=$('gBadge');
+  b.className='badge '+(c>=1&&c<=TOTAL&&o?'on':'off');
+  b.textContent=c===0?'Belum mulai':c>TOTAL?'Kuis selesai':o?'Jawaban terbuka':'Jawaban ditutup';
+  $('gType').textContent=(c>=1&&c<=TOTAL)?LBL[tipe(c)]:'';
+  $('gKey').textContent=res.kunci||'–';
+  if(prev!==c+'|'+o)drawButtons();
+  var total=res.joined||0,ans=res.answered||0;
+  $('gCount').textContent=ans+' dari '+total+' siswa';
+  $('gMeter').style.width=(total?ans/total*100:0)+'%';
+  var bars='',t=(c>=1&&c<=TOTAL)?tipe(c):'';
+  if(t&&t!=='ur'){
+    var mx=Math.max(1,ans);
+    OPS[t].forEach(function(op){
+      var n=res.dist[op]||0;
+      bars+='<div class="bar'+(op===res.kunci?' ok':'')+'"><b>'+(t==='bs'?(op==='B'?'B':'S'):op)+'</b><div class="tr"><i style="width:'+(n/mx*100)+'%"></i></div><span>'+n+'</span></div>';
+    });
+  }
+  $('gBars').innerHTML=bars;
+  var pct='';
+  if(t&&t!=='ur'&&ans>0&&res.kunci){pct=Math.round((res.dist[res.kunci]||0)/ans*100)+'% menjawab benar ('+(res.dist[res.kunci]||0)+' dari '+ans+')';}
+  else if(t==='ur'){pct='Soal uraian: jawaban tertulis dinilai guru di spreadsheet.';}
+  $('gPct').textContent=pct;
+  var chips='';
+  (res.belum||[]).forEach(function(nm){chips+='<span class="chip">'+esc(nm)+'</span>';});
+  $('gBelum').innerHTML=chips||'<span class="hint">'+(c>=1&&c<=TOTAL?'Semua siswa sudah menjawab.':'–')+'</span>';
+}
+function startGuruPoll(){
+  if(gTimer)return;
+  gTimer=setInterval(function(){if(!gBusy)refreshStats();},GURU_POLL_MS);
+}
+function initGuru(){
+  if(!configured()){main.innerHTML='<section class="card"><h1>Alamat server belum diisi</h1><p class="lead">Isi API_URL di index.html dengan URL aplikasi web Apps Script.</p></section>';return;}
+  if(pin){
+    api({action:'stats',pin:pin},2).then(function(res){
+      if(res&&res.ok){buildGuru();applyStats(res);startGuruPoll();}else{vGuruLogin('');}
+    }).catch(function(){vGuruLogin('Tidak bisa tersambung ke server.');});
+  }else vGuruLogin('');
+}
+
+if(GURU)initGuru();else initStudent();
+})();
+</script>
+</body>
+</html>
